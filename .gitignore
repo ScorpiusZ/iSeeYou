@@ -1,0 +1,4 @@
+*.pyc
+
+# machine learning classifier persistence file
+*.pkl
