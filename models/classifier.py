@@ -42,7 +42,6 @@ class SvmClassifier():
 
     def save(self,clf):
         path = dirname(self.file_name())
-        print path
         if not exists(path):
             makedirs(path)
         joblib.dump(clf,self.file_name(),compress = 3)

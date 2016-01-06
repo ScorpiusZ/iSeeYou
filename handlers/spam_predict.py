@@ -1,8 +1,6 @@
 from handlers.base import BaseHandler
 from models.classifier import predict,train,demo
 
-import logging
-logger = logging.getLogger('boilerplate.' + __name__)
 import time
 
 default_nameSpace = 'test'
