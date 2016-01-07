@@ -7,7 +7,7 @@ default_nameSpace = 'test'
 default_name = 'spam'
 
 class SpamPredictHandler(BaseHandler):
-    def get(self):
+    def post(self):
         result = {}
         datas = self.get_json_argument('datas')
         nameSpace = self.get_json_argument('namespace',[default_nameSpace])[0]
@@ -16,7 +16,7 @@ class SpamPredictHandler(BaseHandler):
         self.write(result)
 
 class SpamTrainHandler(BaseHandler):
-    def get(self):
+    def post(self):
         datas = self.get_json_argument('datas')
         nameSpace = self.get_json_argument('namespace',[default_nameSpace])[0]
         name = self.get_json_argument('name',[default_name])[0]
