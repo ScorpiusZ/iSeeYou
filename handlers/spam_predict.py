@@ -1,5 +1,5 @@
 from handlers.base import BaseHandler
-from models.classifier import predict,train,demo
+from models.classifier import predict,train,init
 
 import time
 
@@ -26,6 +26,8 @@ class SpamTrainHandler(BaseHandler):
 
 class SpamInitHandler(BaseHandler):
     def get(self):
-        demo()
+        nameSpace = self.get_json_argument('namespace',[default_nameSpace])[0]
+        name = self.get_json_argument('name',[default_name])[0]
+        init(nameSpace,name)
         self.write('success')
 

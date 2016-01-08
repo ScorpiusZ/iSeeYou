@@ -13,7 +13,7 @@ class ClassifierNotExist(Exception):
     def __init__(self,nameSpace,name):
         self.error_msg = 'classifier {0}/{1} not exists, you shold train first'.format(nameSpace,name)
 
-class SvmClassifier():
+class Classifier():
     def __init__(self,nameSpace,name):
         self.nameSpace = nameSpace
         self.name = name
@@ -63,12 +63,11 @@ def predict_data_list(clf,datas):
 
 def predict(datas,nameSpace,name):
     try:
-        clf = SvmClassifier(nameSpace,name)
+        clf = Classifier(nameSpace,name)
         clf.check()
         result =  predict_data_list(clf,datas)
         return {'results':result,'msg':'success'}
     except ClassifierNotExist as e:
-        print e.error_msg
         return {'result':[],'msg':e.error_msg}
 
 def train_data_list(clf,datas,targets):
@@ -80,18 +79,21 @@ def train_data_list(clf,datas,targets):
         return False
 
 def train(datas,targets,nameSpace,name):
-    clf = SvmClassifier(nameSpace,name)
+    clf = Classifier(nameSpace,name)
     if train_data_list(clf,datas,targets):
         return 'success'
     else:
         return 'failed'
 
-
-def demo():
+def init(nameSpace,name,file_name = 'comments.csv'):
     import numpy as np
-    size = 500
-    clf = SvmClassifier('test','spam1')
-    X = (np.random.ranf(size*Sentence.offset)*256).reshape(-1,Sentence.offset)
-    y = np.random.choice([0,1],size)
-    clf.train(X,y,True)
+    import pandas as pd
+    clf = Classifier(nameSpace,name)
+    samples = pd.read_csv(join(options.data_path,file_name))
+    if len(samples) > 0:
+        y = np.array(samples.status)
+        X = np.array(samples.text.apply(lambda x:Sentence(str(x)).calcutive_array).tolist())
+        clf.train(X,y,True)
+    else:
+        pass
 

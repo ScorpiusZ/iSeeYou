@@ -2,13 +2,14 @@
 #coding:utf8
 
 class Sentence():
-    offset = 64
+    offset = 255
+    scale = 9
     def __init__(self,data):
-        self.data = data
+        self.data = data.strip()
         self.calcutive_array = self.str_to_calcutive_array(data)
 
     def str_to_calcutive_array(self,data):
-        data = [ord(c) for c in data]
+        data = [ord(c)*self.scale for c in data]
         result = data[0:self.offset] if len(data) >=self.offset else data + [0]*(self.offset-len(data))
         return result
 
