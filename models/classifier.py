@@ -78,8 +78,19 @@ def train_data_list(clf,datas,targets):
     except Exception,e:
         return False
 
+def record_training_data(datas,targets,nameSpace,name):
+    from datetime import datetime
+    root_path = options.data_path
+    file_name = join(root_path,nameSpace,name+'.csv')
+    if not exists(dirname(file_name)):
+        makedirs(dirname(file_name))
+    with open(file_name,'a+') as data_file:
+        data_file.writelines([str(datetime.now())+' , '+data.strip()+' , '+ target +'\n' for data,target in zip(datas,targets)])
+
+
 def train(datas,targets,nameSpace,name):
     clf = Classifier(nameSpace,name)
+    record_training_data(datas,targets,nameSpace,name)
     if train_data_list(clf,datas,targets):
         return 'success'
     else:

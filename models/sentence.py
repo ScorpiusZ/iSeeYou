@@ -6,7 +6,7 @@ class Sentence():
     scale = 9
     def __init__(self,data):
         self.data = data.strip()
-        self.calcutive_array = self.str_to_calcutive_array(data)
+        self.calcutive_array = self.str_to_calcutive_array(self.data)
 
     def str_to_calcutive_array(self,data):
         data = [ord(c)*self.scale for c in data]
